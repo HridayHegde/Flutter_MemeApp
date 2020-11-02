@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   
   Future<List<Meme>> getmemes(int limits,List<String> subreddits) async{
-    String url = "http://192.168.1.3:5000/getfromreddit";
+    String url = "https://scraper-backend-meme-app.herokuapp.com/getfromreddit";
     String body = jsonEncode({'limits': limits,'subreddit':subreddits});
 
     var resp = await http.post(url,headers: {"Content-Type": "application/json; charset=utf-8",'Charset': 'utf-8'},body:body);
