@@ -67,8 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> downloadFile() async {
     final directory = await ExtStorage.getExternalStorageDirectory();
-    final myImagePath = '${directory}/DownloadedMemes';
-    final myImgDir = await new Directory(myImagePath).create();
+    //final myImagePath = '${directory}/DownloadedMemes';
+    //final myImgDir = await new Directory(myImagePath).create();
     Dio dio = Dio();
     int random_name = new DateTime.now().millisecondsSinceEpoch;
 
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //var dir =          await getExternalStorageDirectory(); //getApplicationDocumentsDirectory();
 
       await dio.download(
-          image_download_url, "${directory}/MemeApp/_meme$random_name.jpg",
+          image_download_url, "${directory}/Memearia/_meme$random_name.jpg",
           onReceiveProgress: (rcv, total) {
         print(
             'received: ${rcv.toStringAsFixed(0)} out of total: ${total.toStringAsFixed(0)}');
