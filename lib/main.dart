@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'globals.dart' as globals;
 import 'package:dio/dio.dart';
+import 'package:ext_storage/ext_storage.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
@@ -29,7 +30,7 @@ const MaterialColor primaryBlack = MaterialColor(
 );
 
 const int _blackPrimaryValue = 0xFF000000;
-String image_download_url ="";
+String image_download_url = "";
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -65,8 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> downloadFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final myImagePath = '${directory.path}/DownloadedMemes';
+    final directory = await ExtStorage.getExternalStorageDirectory();
+    final myImagePath = '${directory}/DownloadedMemes';
     final myImgDir = await new Directory(myImagePath).create();
     Dio dio = Dio();
     int random_name = new DateTime.now().millisecondsSinceEpoch;
@@ -75,12 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
       //var dir =          await getExternalStorageDirectory(); //getApplicationDocumentsDirectory();
 
       await dio.download(
-          image_download_url, "${directory.path}/MemeApp/_meme$random_name.jpg",
+          image_download_url, "${directory}/MemeApp/_meme$random_name.jpg",
           onReceiveProgress: (rcv, total) {
-            print(
-                'received: ${rcv.toStringAsFixed(0)} out of total: ${total
-                    .toStringAsFixed(0)}');
-          });
+        print(
+            'received: ${rcv.toStringAsFixed(0)} out of total: ${total.toStringAsFixed(0)}');
+      });
     } catch (e) {
       print(e);
     }
